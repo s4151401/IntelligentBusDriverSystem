@@ -1,0 +1,23 @@
+name: GitHub Actions Java test workflow # workflow name
+run-name: Running tests on github actions
+on: [push] # trigger the workflow on push events
+jobs:
+  java-test: # job name
+    runs-on: ubuntu-latest # configures the job to run on the latest version
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        # the uses keyword specifies that this step will run v4 og the actions/checkout action
+        # this is an action that checks your repo onto the runner, allowing you to run scripts or other actions against your code
+        # use checkout action any time your workflow will use the repos code
+
+      - name: Setup java # install java on the runner
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '24' # version of java to install in the job runner
+      - name: Run tests
+        run: mvn test
+        # this step runs the command mvn test which is a maven command to run tests in your projects
+        # maven is a build automation tool used primarily for java projects
+        # tests are defined in projects source code and will be executed by maven
