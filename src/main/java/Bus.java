@@ -21,6 +21,9 @@ public class Bus {
         if (busID == null || !busID.matches("\\d{8}")) {
             throw new IllegalArgumentException("Bus ID must be exactly 8 digits");
         }
+
+        validateFuelType(fuelType);
+
         this.busID = busID;
         this.capacity = capacity;
         this.fuelLevel = fuelLevel;
@@ -28,9 +31,9 @@ public class Bus {
     }
 
     /**
-     * Update capacity - B2: can only decrease, not increase
+     * Validates capacity - B2: capacity cannot increase during update (can decrease)
      */
-    public void setCapacity(int newCapacity) {
+    public void validateCapacityUpdate(int newCapacity) {
         if (newCapacity > this.capacity) {
             throw new IllegalArgumentException("Capacity cannot increase during update");
         }
@@ -38,9 +41,9 @@ public class Bus {
     }
 
     /**
-     * Assign a driver to this bus - checks B3, B4, B5
+     * Validates B3, B4, B5: checks driver is compatible with bus
      */
-    public void assignDriver(Driver driver) {
+    public void validateDriverAssignment(Driver driver) {
         // B3: driver older than 50 cannot drive buses with capacity >= 50
         int age = calculateAge(driver.getBirthdate());
         if (age > 50 && this.capacity >= 50) {
@@ -73,9 +76,23 @@ public class Bus {
         return Period.between(dob, LocalDate.now()).getYears();
     }
 
+    // validate fuel type
+    public void validateFuelType(String fuelType) {
+        if (!fuelType.equals("Electricity") && !fuelType.equals("Hybrid") && !fuelType.equals("Diesel")) {
+            throw new IllegalArgumentException("Fuel type must be Diesel, Hybrid or Electricity");
+        }
+    }
+
     // Getters
     public String getBusID()    { return busID; }
     public int getCapacity()    { return capacity; }
     public double getFuelLevel(){ return fuelLevel; }
     public String getFuelType() { return fuelType; }
+
+    // Setters
+    public void setFuelLevel(double fuelLevel) { this.fuelLevel = fuelLevel; }
+    public void setFuelType(String newFuelType) {
+        validateFuelType(newFuelType);
+        this.fuelType = newFuelType;
+    }
 }
