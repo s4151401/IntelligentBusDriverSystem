@@ -13,7 +13,7 @@ public class DriverIntegrationTest {
         // clear file before each test runs
     @BeforeEach
     void setup() throws IOException {
-        new FileWriter("src/main/resources/driver.txt", false).close(); // false = opens the file in overwrite mode; close = close file after opening
+        new FileWriter("src/main/resources/drivers.txt", false).close(); // false = opens the file in overwrite mode; close = close file after opening
     }
 
 //Task 3: (Test 1) Ensure valid drivers are stored successfully 
@@ -27,7 +27,7 @@ void shouldStoreValidDriver() throws IOException {
     BufferedReader d = new BufferedReader(new FileReader("src/main/resources/driver.txt"));
     String line = d.readLine();
     d.close();
-    assertEquals("2234!@ABCD|Alex Volkov|8|Heavy|20|Batman|Melbourne|Victoria|Australia|16-08-1997", line);
+    assertEquals("2234!@ABCD, Alex Volkov, 8, Heavy, 20|Batman|Melbourne|Victoria|Australia, 16-08-1997", line);
 }
 
 //Task 3: (Test 2) Ensure invalid drivers are rejected 
@@ -45,13 +45,13 @@ void shouldRejectInvalidDriver() throws IOException {
 
 //Task 3: (Test 3) Ensure updates are persisted correctly 
 @Test
-void shouldPersistUpdates() {
+void shouldPersistUpdates() throws IOException {
     DriverRepository driverRepo = new DriverRepository();
     // add new record 
-    Driver driver = new Driver("2234!@ABCD", "Josh Chen", 4, "Light", "57|Sesame|Melbourne|Victoria|Australia", "1-05-2000");
+    Driver driver = new Driver("2234!@ABCD", 4, "Light", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
     driverRepo.add(driver);
     //update the driver records
-    driverRepo.update("2234!@ABCD", "Josh Chen", 7, "Medium", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
+    driverRepo.update("2234!@ABCD", 7, "Medium", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
     // retrieve and check updated values have persisted
     List<Driver> drivers = driverRepo.retrieve();
     assertEquals(7, drivers.getFirst().getExperienceYears());
