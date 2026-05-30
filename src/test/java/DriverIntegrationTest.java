@@ -48,10 +48,10 @@ void shouldRejectInvalidDriver() throws IOException {
 void shouldPersistUpdates() throws IOException {
     DriverRepository driverRepo = new DriverRepository();
     // add new record 
-    Driver driver = new Driver("2234!@ABCD", "Josh Chen", 4, "Light", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
+    Driver driver = new Driver("2235!@ABCD", "Josh Chen", 4, "Light", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
     driverRepo.add(driver);
     //update the driver records
-    driverRepo.update("2234!@ABCD", 7, "Medium", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
+    driverRepo.update("2235!@ABCD", 7, "Medium", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
     // retrieve and check updated values have persisted
     List<Driver> drivers = driverRepo.retrieve();
     assertEquals(7, drivers.getFirst().getExperienceYears());
