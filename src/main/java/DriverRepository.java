@@ -18,7 +18,7 @@ public class DriverRepository {
         }
         // Format of entering in TXT file - driverID|name|experienceYears|licenseType|address|birthdate
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            bw.write(driver.getDriverID() + "|" + driver.getName() + "|" + driver.getExperienceYears() + "|" + driver.getLicenseType() + "|" + driver.getAddress() + "|" + driver.getBirthdate());
+            bw.write(driver.getDriverID() + "," + driver.getName() + "," + driver.getExperienceYears() + "," + driver.getLicenseType() + "," + driver.getAddress() + "," + driver.getBirthdate());
             bw.newLine();         // move to a new line
             System.out.println("Successfully appended to the file.");
         }
@@ -31,7 +31,7 @@ public class DriverRepository {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\|");
+                String[] parts = line.split(",");
                 drivers.add(new Driver(parts[0].trim(), (parts[1].trim()), Integer.parseInt(parts[2].trim()), parts[3].trim(), parts[4].trim(), parts[5].trim()));
                 System.out.println(line);
             }
@@ -72,10 +72,10 @@ public class DriverRepository {
                 // if the driver in the list matches the ID being updated
                 if (driver.getDriverID().equals(driverID)) {
                     // write the updated values
-                    bw.write(existing.getDriverID() + "|" + existing.getName() + "|" + existing.getExperienceYears() + "|" + existing.getLicenseType() + "|" + existing.getAddress() + "|" + existing.getBirthdate());
+                    bw.write(existing.getDriverID() + "," + existing.getName() + "," + existing.getExperienceYears() + "," + existing.getLicenseType() + "," + existing.getAddress() + "," + existing.getBirthdate());
                 } else {
                     // if the driver list doesn't match, write the original values unchanged
-                    bw.write(driver.getDriverID() + "|" + driver.getName() + "|" + driver.getExperienceYears() + "|" + driver.getLicenseType() + "|" + driver.getAddress() + "|" + driver.getBirthdate());
+                    bw.write(driver.getDriverID() + "," + driver.getName() + "," + driver.getExperienceYears() + "," + driver.getLicenseType() + "," + driver.getAddress() + "," + driver.getBirthdate());
                 }
                 bw.newLine();         // move to a new line
             }
