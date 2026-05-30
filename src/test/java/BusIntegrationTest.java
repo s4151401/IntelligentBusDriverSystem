@@ -18,7 +18,7 @@ public class BusIntegrationTest {
         new FileWriter("src/main/resources/buses.txt", false).close(); // false = opens the file in overwrite mode; close = close file after opening
     }
 
-    // Task 4: Verify valid buses are stored correctly
+    // Task 4: Test 1 - Verify valid buses are stored correctly
     @Test
     void shouldStoreValidBus() throws IOException {
         BusRepository busRepo = new BusRepository();
@@ -30,10 +30,10 @@ public class BusIntegrationTest {
         BufferedReader br = new BufferedReader(new FileReader("src/main/resources/buses.txt"));
         String line =  br.readLine();
         br.close();
-        assertEquals("12345678|50|80.0|Hybrid", line);
+        assertEquals("12345678,50,80.0,Hybrid", line);
     }
 
-    // Task 4: Verify invalid buses are rejected
+    // Task 4: Test 2 - Verify invalid buses are rejected
     @Test
     void shouldNotStoreInvalidBus() throws IOException {
         BusRepository busRepo = new BusRepository();
@@ -51,7 +51,7 @@ public class BusIntegrationTest {
         assertEquals(1, busRepo.count()); // 2nd bus should be rejected, so count should be 1
     }
 
-    // Task 5: Verify updates are persisted correctly
+    // Task 4: Test 3 - Verify updates are persisted correctly
     @Test
     void updatesShouldPersist() throws IOException {
         BusRepository busRepo = new BusRepository();
@@ -69,7 +69,7 @@ public class BusIntegrationTest {
         assertEquals("Diesel", buses.getFirst().getFuelType());
     }
 
-    // Task 6: Verify record counts are updated correctly
+    // Task 4: Test 4 - Verify record counts are updated correctly
     @Test
     void shouldUpdateRepoCountCorrectly() throws IOException {
         BusRepository busRepo = new BusRepository();

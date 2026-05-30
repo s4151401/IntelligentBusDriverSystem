@@ -17,7 +17,7 @@ public class BusRepository {
         }
         // Format of entering in TXT file - busID|capacity|fuelLevel|fuelType
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            bw.write(bus.getBusID() + "|" + bus.getCapacity() + "|" + bus.getFuelLevel() + "|" + bus.getFuelType());
+            bw.write(bus.getBusID() + "," + bus.getCapacity() + "," + bus.getFuelLevel() + "," + bus.getFuelType());
             bw.newLine();         // move to a new line
             System.out.println("Successfully appended to the file.");
         }
@@ -30,7 +30,7 @@ public class BusRepository {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\|");
+                String[] parts = line.split(",");
                 buses.add(new Bus(parts[0].trim(), Integer.parseInt(parts[1].trim()), Double.parseDouble(parts[2].trim()), parts[3].trim()));
                 System.out.println(line);
             }
@@ -69,10 +69,10 @@ public class BusRepository {
                 // if the bus in the list matches the ID being updated
                 if (bus.getBusID().equals(busID)) {
                     // write the updated values
-                    bw.write(existing.getBusID() + "|" + existing.getCapacity() + "|" + existing.getFuelLevel() + "|" + existing.getFuelType());
+                    bw.write(existing.getBusID() + "," + existing.getCapacity() + "," + existing.getFuelLevel() + "," + existing.getFuelType());
                 } else {
                     // if the bus list doesn't match, write the original values unchanged
-                    bw.write(bus.getBusID() + "|" + bus.getCapacity() + "|" + bus.getFuelLevel() + "|" + bus.getFuelType());
+                    bw.write(bus.getBusID() + "," + bus.getCapacity() + "," + bus.getFuelLevel() + "," + bus.getFuelType());
                 }
                 bw.newLine();         // move to a new line
             }
