@@ -20,14 +20,14 @@ public class DriverIntegrationTest {
 @Test
 void shouldStoreValidDriver() throws IOException {
     DriverRepository driverRepo = new DriverRepository();
-    Driver driver = new Driver("2234!@ABCD", "Alex Volkov", 8, "Heavy", "20|Batman|Melbourne|Victoria|Australia", "16-08-1997");
+    Driver driver = new Driver("2234!@ABCD","Alex Volkov",8,"Heavy","20|Batman|Melbourne|Victoria|Australia","16-08-1997");
     driverRepo.add(driver);
     assertEquals(1, driverRepo.count());
 
     BufferedReader d = new BufferedReader(new FileReader("src/main/resources/drivers.txt"));
     String line = d.readLine();
     d.close();
-    assertEquals("2234!@ABCD, Alex Volkov, 8, Heavy, 20|Batman|Melbourne|Victoria|Australia, 16-08-1997", line);
+    assertEquals("2234!@ABCD,Alex Volkov,8,Heavy,20|Batman|Melbourne|Victoria|Australia,16-08-1997", line);
 }
 
 //Task 3: (Test 2) Ensure invalid drivers are rejected 
@@ -48,10 +48,10 @@ void shouldRejectInvalidDriver() throws IOException {
 void shouldPersistUpdates() throws IOException {
     DriverRepository driverRepo = new DriverRepository();
     // add new record 
-    Driver driver = new Driver("2235!@ABCD", "Josh Chen", 4, "Light", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
+    Driver driver = new Driver("2235!@ABCD","Josh Chen",4,"Light","57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
     driverRepo.add(driver);
     //update the driver records
-    driverRepo.update("2235!@ABCD", 7, "Medium", "57|Sesame|Melbourne|Victoria|Australia", "01-05-2000");
+    driverRepo.update("2235!@ABCD",7,"Medium","57|Sesame|Melbourne|Victoria|Australia","01-05-2000");
     // retrieve and check updated values have persisted
     List<Driver> drivers = driverRepo.retrieve();
     assertEquals(7, drivers.getFirst().getExperienceYears());
@@ -62,8 +62,8 @@ void shouldPersistUpdates() throws IOException {
 @Test 
 void shouldUpdateRecordsCorrectly() throws IOException {
     DriverRepository driverRepo = new DriverRepository();
-    Driver driver1 = new Driver("2236#$ACDC", "Rhys Larsen", 5, "Medium", "89|Lois Lane|Melbourne|Victoria|Australia", "23-02-2001");
-    Driver driver2 = new Driver("2237%*QWER", "Chris Harper", 9, "Heavy", "20|Willard|Melbourne|Victoria|Australia", "06-10-1995");
+    Driver driver1 = new Driver("2236#$ACDC","Rhys Larsen",5,"Medium","89|Lois Lane|Melbourne|Victoria|Australia","23-02-2001");
+    Driver driver2 = new Driver("2237%*QWER","Chris Harper",9,"Heavy","20|Willard|Melbourne|Victoria|Australia","06-10-1995");
     driverRepo.add(driver1);
     driverRepo.add(driver2);
     assertEquals(2, driverRepo.count()); 
