@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Bus class representing a bus in the Intelligent Bus Driver Guidance System.
@@ -62,7 +61,7 @@ public class Bus {
             String licence = driver.getLicenseType();
             if (!licence.equals("Heavy") && !licence.equals("PublicTransport")) {
                 throw new IllegalArgumentException(
-                    "Only Heavy or PublicTransport licence can drive electric/hybrid buses");
+                    "Only Heavy or PublicTransport licence can drive electric/hybrid buses"); 
             }
         }
     }
@@ -71,7 +70,7 @@ public class Bus {
      * Helper method to calculate age from birthdate string DD-MM-YYYY
      */
     private int calculateAge(String birthdate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");//test
         LocalDate dob = LocalDate.parse(birthdate, formatter);
         return Period.between(dob, LocalDate.now()).getYears();
     }
