@@ -41,7 +41,7 @@ public class BusIntegrationTest {
         Bus bus1 = new Bus("12345678", 60, 50.0, "Diesel");
         Bus bus2 = new Bus("12345678", 100, 20.0, "Hybrid");
 
-        // add first bus
+        // Add first bus
         busRepo.add(bus1);
 
         // Try adding another bus with same ID
